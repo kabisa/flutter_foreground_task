@@ -14,14 +14,19 @@ import com.pravera.flutter_foreground_task.models.ForegroundTaskOptions
  * @author Dev-hwang
  * @version 1.0
  */
-class BootReceiver : BroadcastReceiver() {
+class IntentReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        if (context != null && intent?.action == "android.intent.action.BOOT_COMPLETED") {
-            // Check whether to start the service at boot time.
+        if (context != null && (intent?.action == Intent.ACTION_BOOT_COMPLETED || intent?.action == Intent.ACTION_MY_PACKAGE_REPLACED)) {
+
             val options = ForegroundTaskOptions.getData(context)
+
+            // Check whether to start the service at boot time.
             if (!options.autoRunOnBoot) return
 
-            // Create an intent for calling the service and store the action to be executed.
+            //Check whether to start the service on my package replaced time.
+            if (!options.autoRunOnMyPackageReplaced) return
+
+            // Create an intent for calling the service and store the action to be executed
             val nIntent = Intent(context, ForegroundService::class.java)
             ForegroundServiceStatus.putData(context, ForegroundServiceAction.REBOOT)
             ContextCompat.startForegroundService(context, nIntent)
