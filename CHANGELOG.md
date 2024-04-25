@@ -1,3 +1,7 @@
+## 6.1.4
+
+* Add `autoRunOnMyPackageReplaced` field to `ForegroundTaskOptions`. Check the readme for more details.
+
 ## 6.1.3
 
 * [**DOCS**] Update readme [#192](https://github.com/Dev-hwang/flutter_foreground_task/issues/192)
