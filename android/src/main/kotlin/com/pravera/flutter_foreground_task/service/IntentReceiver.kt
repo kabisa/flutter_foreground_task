@@ -25,7 +25,7 @@ class IntentReceiver : BroadcastReceiver() {
         if(intent?.action == Intent.ACTION_MY_PACKAGE_REPLACED && !options.autoRunOnMyPackageReplaced) return
 
 
-        if(intent?.action == Intent.ACTION_BOOT_COMPLETED || intent?.action == Intent.ACTION_MY_PACKAGE_REPLACED)) {
+        if(context != null && (intent?.action == Intent.ACTION_BOOT_COMPLETED || intent?.action == Intent.ACTION_MY_PACKAGE_REPLACED)) {
             // Create an intent for calling the service and store the action to be executed
             val nIntent = Intent(context, ForegroundService::class.java)
             ForegroundServiceStatus.putData(context, ForegroundServiceAction.REBOOT)
