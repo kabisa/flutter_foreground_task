@@ -241,7 +241,11 @@ class ForegroundService : Service(), MethodChannel.MethodCallHandler {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
 				builder.setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE)
 			}
-			startForeground(notificationOptions.id, builder.build())
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+				startForeground(notificationOptions.id, builder.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE)
+			} else {
+				startForeground(notificationOptions.id, builder.build())
+			}
 		} else {
 			val builder = NotificationCompat.Builder(this, channelId)
 			builder.setOngoing(true)
